@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		761DEED41ECA8BB500CCD9AF /* then.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761DEED21ECA87F200CCD9AF /* then.framework */; };
+		761DEED51ECA8BB500CCD9AF /* then.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 761DEED21ECA87F200CCD9AF /* then.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		763DB46F1E18813700BFC5D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763DB46E1E18813700BFC5D9 /* AppDelegate.swift */; };
 		763DB4711E18813700BFC5D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763DB4701E18813700BFC5D9 /* ViewController.swift */; };
 		763DB4741E18813700BFC5D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 763DB4721E18813700BFC5D9 /* Main.storyboard */; };
@@ -76,7 +78,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		761DEED61ECA8BB500CCD9AF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				761DEED51ECA8BB500CCD9AF /* then.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		761DEED21ECA87F200CCD9AF /* then.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = then.framework; sourceTree = "<group>"; };
 		763DB46B1E18813700BFC5D9 /* collectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = collectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		763DB46E1E18813700BFC5D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		763DB4701E18813700BFC5D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				761DEED41ECA8BB500CCD9AF /* then.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +202,7 @@
 		763DB46D1E18813700BFC5D9 /* collectionView */ = {
 			isa = PBXGroup;
 			children = (
+				761DEED21ECA87F200CCD9AF /* then.framework */,
 				76E5FA641EC59EDC00D116D5 /* DropMenu */,
 				76E5FA631EC59ECE00D116D5 /* collectionMenu */,
 				76E5FA551EC333EF00D116D5 /* Array_Extension.swift */,
@@ -290,6 +309,7 @@
 				763DB4671E18813700BFC5D9 /* Sources */,
 				763DB4681E18813700BFC5D9 /* Frameworks */,
 				763DB4691E18813700BFC5D9 /* Resources */,
+				761DEED61ECA8BB500CCD9AF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -610,6 +630,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/collectionView",
+				);
 				INFOPLIST_FILE = collectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spectatorTest.collectionView;
@@ -622,6 +646,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/collectionView",
+				);
 				INFOPLIST_FILE = collectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spectatorTest.collectionView;

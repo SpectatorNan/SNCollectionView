@@ -17,5 +17,5 @@ protocol RadioContent  {
 
 struct RadioProperty {
     public static let selectedTextColor = string_ColorRGB(hex: "ff7800")
-    public static let normalTextColor = string_ColorRGB(hex: "979797")
+    public static let normalTextColor = string_ColorRGB(hex: "505050")
 }

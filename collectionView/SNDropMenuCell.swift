@@ -40,7 +40,7 @@ class SNDropMenuCell: UITableViewCell {
     
     lazy var title: UILabel = {
         let l = UILabel()
-        l.font = UIFont.systemFont(ofSize: 18)
+        l.font = UIFont.systemFont(ofSize: adjustSizeAPP(attribute: 30))
         return l
     }()
     

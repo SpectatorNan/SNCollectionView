@@ -8,19 +8,19 @@
 
 import UIKit
 
-
-
 class SNDropMenuView: UIView {
     
+    typealias kblock = ()->()
     /// 动画时长
-    var time : TimeInterval = 1
+    var time : TimeInterval = 0.5
     
     
     /// 自定义蒙版
-    lazy var customMask : UIView = {
-        let view = UIView()
+    lazy var customMask : UIButton = {
+        let view = UIButton()
         view.backgroundColor = .gray
         view.alpha = 0.5
+        view.addTarget(self, action: #selector(layout), for: .touchUpInside)
         return view
     }()
     
@@ -69,7 +69,7 @@ class SNDropMenuView: UIView {
     /// 按钮视图
     lazy var btnV : UIView = {
         let v = UIView()
-        
+        v.backgroundColor = .white
         return v
     }()
     
@@ -201,7 +201,7 @@ fileprivate extension SNDropMenuView {
     }
     
     /// 还原视图
-    fileprivate func layout() {
+     @objc fileprivate func layout() {
         
         listTable.snp.updateConstraints { (make) in
             make.height.equalTo(0)
@@ -211,14 +211,21 @@ fileprivate extension SNDropMenuView {
         UIView.animate(withDuration: time, animations: {
             
             self.superview?.layoutIfNeeded()
+            print("layout")
         }) { (c) in
             
-            self.removeMask()
+//            self.removeMask(complete: {[unowned self] in
+//                self.clearBtnCheck()
+//            })
+            print("reomve mask")
+                self.removeMask(complete: { 
+                    self.clearBtnCheck()
+                })
         }
-        
+    
     }
     
-    
+ 
     /// 更新mask
     fileprivate func insertMask() {
         
@@ -231,7 +238,8 @@ fileprivate extension SNDropMenuView {
     }
     
     /// 移除mask
-    fileprivate func removeMask() {
+    //typealias kblock = ()->()
+    fileprivate func removeMask(complete: kblock?) {
         
         
         customMask.snp.remakeConstraints({ (make) in
@@ -242,9 +250,21 @@ fileprivate extension SNDropMenuView {
         
         layoutIfNeeded()
         
+        // kblock()
+        complete?()
     }
     
-    
+     fileprivate func clearBtnCheck() {
+        self.sortBtn.checked = false
+        
+        self.allBtn.checked = false
+        
+        self.screenBtn.checked = false
+        
+        self.screenBtn.refreshShow()
+        self.allBtn.refreshShow()
+        self.sortBtn.refreshShow()
+    }
 }
 
 extension SNDropMenuView : UITableViewDelegate {
