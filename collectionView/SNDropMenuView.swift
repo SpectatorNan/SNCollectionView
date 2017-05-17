@@ -209,10 +209,10 @@ fileprivate extension SNDropMenuView {
             make.top.equalTo(btnV.snp.bottom).offset(adjustSizeAPP(attribute: 0.5))
             make.right.left.equalToSuperview()
             make.height.equalTo(height)
-            make.height.lessThanOrEqualTo(customMask.snp.height).priority(.required)
+            make.height.lessThanOrEqualTo(customMask.snp.height).offset(adjustSizeAPP(attribute: -200)).priority(.required)
         }
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: time) {
             self.layoutIfNeeded()
         }
         
@@ -223,6 +223,7 @@ fileprivate extension SNDropMenuView {
         
         listTable.snp.updateConstraints { (make) in
             make.height.equalTo(0)
+            make.height.lessThanOrEqualTo(customMask.snp.height).priority(.required)
         }
         
         
@@ -232,9 +233,6 @@ fileprivate extension SNDropMenuView {
             print("layout")
         }) { (c) in
             
-//            self.removeMask(complete: {[unowned self] in
-//                self.clearBtnCheck()
-//            })
             print("reomve mask")
                 self.removeMask(complete: { 
                     self.clearBtnCheck()
@@ -318,6 +316,7 @@ extension SNDropMenuView : UITableViewDelegate {
         }
         
         tableView.reloadData()
+        layout()
     }
 }
 
@@ -332,18 +331,17 @@ extension SNDropMenuView : SNDropMenuButtonDelegate {
     ///   - groupId: 按钮组名
     func didSelected(_ menuButton: SNDropMenuButton, groupId: String) {
         print("点击了按钮：\(menuButton.text)")
-        
-        let text = menuButton.text
+      
         if (menuButton.checked) {
             insertMask()
-            switch text {
-            case "排序":
+            switch menuButton {
+            case sortBtn:
                 listType = .sort
                 expandList(sortArray)
-            case "全部":
+            case allBtn:
                 listType = .all
                 expandList(category)
-            case "筛选":
+            case screenBtn:
                 listType = .scrren
                 expandList(screentArray)
             default:

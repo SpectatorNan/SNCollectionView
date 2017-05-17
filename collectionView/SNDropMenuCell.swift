@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SNDropMenuCellMdoel {
+class SNDropMenuCellMdoel {
     let name :  String
     var check: Bool = false
     
