@@ -10,11 +10,20 @@ import UIKit
 
 class SNDropMenuView: UIView {
     
+    enum listContentType {
+        case all
+        case sort
+        case scrren
+        case null
+    }
+    
     typealias kblock = ()->()
     /// 动画时长
     var time : TimeInterval = 0.5
     
-    
+    typealias tap = (String)->()
+    var didSelectedItem : tap?
+    //var didSelectedItem : (String)->() = {str in }
     /// 自定义蒙版
     lazy var customMask : UIButton = {
         let view = UIButton()
@@ -23,11 +32,16 @@ class SNDropMenuView: UIView {
         view.addTarget(self, action: #selector(layout), for: .touchUpInside)
         return view
     }()
-    
+    var topMask : UIView?
     
     /// 下拉菜单数据
     var listData : Array<SNDropMenuCellMdoel>?
+    var listType :  listContentType = .null
     
+    var category : Array<SNDropMenuCellMdoel> = []
+    
+    var sortArray = [SNDropMenuCellMdoel("智能排序", checked: true),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高")]
+    var screentArray = [SNDropMenuCellMdoel("全部", checked: true),SNDropMenuCellMdoel("直营店"),SNDropMenuCellMdoel("加盟商"),SNDropMenuCellMdoel("普通商")]
     
     /// 下拉菜单
     lazy var listTable : UITableView = {
@@ -95,7 +109,7 @@ extension SNDropMenuView {
     /// 初始化界面
     fileprivate func setupView() {
         
-        backgroundColor = .clear
+       // backgroundColor = .clear
         
         addSubview(customMask)
         addSubview(btnV)
@@ -136,7 +150,7 @@ extension SNDropMenuView {
             make.top.equalTo(btnV.snp.bottom).offset(adjustSizeAPP(attribute: 0.5))
             make.right.left.equalToSuperview()
             make.height.lessThanOrEqualTo(customMask.snp.height).priority(.required)
-            make.height.equalTo(0.5)
+            //make.height.equalTo(0.5)
         }
         
         customMask.snp.makeConstraints { (make) in
@@ -190,8 +204,12 @@ fileprivate extension SNDropMenuView {
         let height = CGFloat((listData?.count)!) * adjustSizeAPP(attribute: 90)
         listTable.reloadData()
         
-        listTable.snp.updateConstraints { (make) in
+        
+        listTable.snp.remakeConstraints { (make) in
+            make.top.equalTo(btnV.snp.bottom).offset(adjustSizeAPP(attribute: 0.5))
+            make.right.left.equalToSuperview()
             make.height.equalTo(height)
+            make.height.lessThanOrEqualTo(customMask.snp.height).priority(.required)
         }
         
         UIView.animate(withDuration: 0.5) {
@@ -229,6 +247,19 @@ fileprivate extension SNDropMenuView {
     /// 更新mask
     fileprivate func insertMask() {
         
+        let v = UIView()
+        v.backgroundColor = .clear
+        self.superview?.addSubview(v)
+        topMask = v
+        
+        v.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+            make.width.equalTo(ScreenW)
+            make.bottom.equalTo(self.snp.top)
+        }
+
+        
         customMask.snp.remakeConstraints({ (make) in
             make.top.equalTo(btnV.snp.bottom)
             make.left.right.equalToSuperview()
@@ -238,9 +269,12 @@ fileprivate extension SNDropMenuView {
     }
     
     /// 移除mask
-    //typealias kblock = ()->()
+    
     fileprivate func removeMask(complete: kblock?) {
         
+        if let clearMask = topMask {
+            clearMask.removeFromSuperview()
+        }
         
         customMask.snp.remakeConstraints({ (make) in
             make.top.equalTo(btnV.snp.bottom)
@@ -250,7 +284,6 @@ fileprivate extension SNDropMenuView {
         
         layoutIfNeeded()
         
-        // kblock()
         complete?()
     }
     
@@ -280,6 +313,7 @@ extension SNDropMenuView : UITableViewDelegate {
                 listData?[m].check = false
             } else {
                 listData?[m].check = true
+                didSelectedItem?(data[m].name)
             }
         }
         
@@ -304,14 +338,14 @@ extension SNDropMenuView : SNDropMenuButtonDelegate {
             insertMask()
             switch text {
             case "排序":
-                let models = [SNDropMenuCellMdoel("111"),SNDropMenuCellMdoel("222")]
-                expandList(models)
+                listType = .sort
+                expandList(sortArray)
             case "全部":
-                let models = [SNDropMenuCellMdoel("444"),SNDropMenuCellMdoel("555"),SNDropMenuCellMdoel("666"),SNDropMenuCellMdoel("777")]
-                expandList(models)
+                listType = .all
+                expandList(category)
             case "筛选":
-                let models = [SNDropMenuCellMdoel("111"),SNDropMenuCellMdoel("222"),SNDropMenuCellMdoel("333"),SNDropMenuCellMdoel("888"),SNDropMenuCellMdoel("999"),SNDropMenuCellMdoel("0847")]
-                expandList(models)
+                listType = .scrren
+                expandList(screentArray)
             default:
                 break
             }

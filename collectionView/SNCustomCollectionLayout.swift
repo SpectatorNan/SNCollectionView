@@ -24,7 +24,7 @@ class SNCustomCollectionLayout : UICollectionViewLayout {
       
      let count = self.count
        
-        let cellH = ScreenW/4
+        let cellH = adjustSizeAPP(attribute: 136)
         
         if  (count > 4 && count < 8) {
             
@@ -70,18 +70,20 @@ class SNCustomCollectionLayout : UICollectionViewLayout {
             
             //单元格边长
             let cellSide = ScreenW/4
+            let cellHeight = adjustSizeAPP(attribute: 136)
             
             //当前行数，每行显示4个
             let line:Int =  indexPath.item / 4
             
             //当前行的Y坐标
-            let lineOriginY = count >= 8 ? cellSide * CGFloat(line % 2) : 0
+            let lineOriginY = count >= 8 ? (cellHeight+adjustSizeAPP(attribute: 26)) * CGFloat(line % 2) + adjustSizeAPP(attribute: 30) : adjustSizeAPP(attribute: 30)
             
             //右侧单元格X坐标，这里按左右对齐，所以中间空隙大
             let page = count >= 8 ? line >> 1 : line
             
             let leftX = CGFloat(page)*ScreenW + CGFloat(indexPath.item % 4)*cellSide
             
+            // 每个cell的位置
             attribute.frame = CGRect(x: leftX, y: lineOriginY, width: cellSide, height: cellSide)
 
             return attribute

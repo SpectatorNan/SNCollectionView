@@ -18,6 +18,7 @@ class mutableMenuColletionView: UIView {
     
     /// 菜单数据
     var menuData: Array<mutableMenuModel>
+    //var menuData: Array<DDZHomePageCatyageModel>
     
     typealias tap = (String?) -> ()
     
@@ -26,6 +27,7 @@ class mutableMenuColletionView: UIView {
     
     /// item size
     let cellW = ScreenW/4
+    let cellH = adjustSizeAPP(attribute: 136)
     
     /// pagecontrol
     fileprivate lazy var pageControl : UIPageControl = {
@@ -56,12 +58,12 @@ class mutableMenuColletionView: UIView {
         
         var flowLayout = SNCustomCollectionLayout()
         flowLayout.count = self.menuData.count
-        let cellH = self.cellW
+        
         let itemSpace : CGFloat = 0
         
         let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 414, height: 235), collectionViewLayout: flowLayout)
         
-        collection.backgroundColor = .clear
+        collection.backgroundColor = .white
    
         collection.register(menuCollectionCell.self, forCellWithReuseIdentifier: menuCollectionCell.cellID)
         collection.isPagingEnabled = true
@@ -89,30 +91,39 @@ class mutableMenuColletionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var menuViewHeight : CGFloat{
+        get{
+            return sizeHeight()
+        }
+    }
+    
+    private func sizeHeight()->CGFloat{
+        let count = menuData.count
+        
+        var viewHeight : CGFloat = 0.0
+        
+        if  (count > 4 && count < 8) {
+            viewHeight = cellH + adjustSizeAPP(attribute: 50) + adjustSizeAPP(attribute: 30)
+        } else if (count < 5) {
+            viewHeight = cellH + adjustSizeAPP(attribute: 30) + adjustSizeAPP(attribute: 30)
+        } else if (count > 8) {
+            viewHeight = 2*cellH + adjustSizeAPP(attribute: 50) + adjustSizeAPP(attribute: 30) + adjustSizeAPP(attribute:26)
+        } else {
+            viewHeight = 2*cellH + adjustSizeAPP(attribute: 30) + adjustSizeAPP(attribute: 26) + adjustSizeAPP(attribute: 30)
+        }
+        
+        return viewHeight
+    }
     
     /// 启动视图
     func setupView() {
         addSubview(menuView)
         addSubview(pageControl)
         
-        let count = menuData.count
+        addSubview(menuView)
+        addSubview(pageControl)
         
-        var viewHeight : CGFloat
-
-        
-        if  (count > 4 && count < 8) {
-            viewHeight = cellW + adjustSizeAPP(attribute: 50)
-
-        } else if (count < 5) {
-            viewHeight = cellW
-            
-        } else if (count > 8) {
-            viewHeight = 2*cellW + adjustSizeAPP(attribute: 50)
-            
-        } else {
-            viewHeight = 2*cellW
-            
-        }
+        let viewHeight = sizeHeight()
         
         menuView.snp.makeConstraints { make in
             make.top.bottom.right.left.equalToSuperview()
@@ -120,12 +131,11 @@ class mutableMenuColletionView: UIView {
         }
         
         pageControl.snp.makeConstraints { (make) in
-            make.top.equalTo(menuView.snp.bottom).offset(adjustSizeAPP(attribute: 25))
+            make.height.equalTo(adjustSizeAPP(attribute: 23))
             make.bottom.equalToSuperview().offset(adjustSizeAPP(attribute: -12))
             make.centerX.equalToSuperview()
         }
-        
-        
+
     }
 }
 
@@ -138,6 +148,7 @@ extension mutableMenuColletionView: UICollectionViewDelegate {
         
         let cell = collectionView.cellForItem(at: indexPath) as! menuCollectionCell
         self.itemDidSelect?(cell.model.name)
+        //self.itemDidSelect?(cell.model.china_name)
         
     }
     
@@ -167,26 +178,16 @@ extension mutableMenuColletionView: UICollectionViewDataSource {
     }
 }
 
-
-
-class mutableMenuCollection: UICollectionView {
-    
-}
-
-
 class menuCollectionCell: UICollectionViewCell {
     
     static let cellID = "menuCollectionCell"
     
     fileprivate var data: mutableMenuModel?
+    //fileprivate var data: DDZHomePageCatyageModel?
     
     var model : mutableMenuModel {
         set {
             title.text = newValue.name//newValue.name
-//            let url = URL(string: newValue.imgUrl)
-//            icon.kf.setImage(with: url)
-//            let urlStr = picUrlPrefix + newValue.pic_name + "@\(ScreenScale)x.png"
-//            icon.kf.setImage(with: URL.init(string: urlStr))
             icon.image = UIImage(named: "cate")
             data = newValue
         }
@@ -194,6 +195,19 @@ class menuCollectionCell: UICollectionViewCell {
             return data!
         }
     }
+    
+    //var model : DDZHomePageCatyageModel {
+      //  set {
+        //    title.text = newValue.china_name//newValue.name
+            
+          //  let urlStr = picUrlPrefix + newValue.pic_name + "@\(ScreenScale)x.png"
+            //icon.kf.setImage(with: URL.init(string: urlStr))
+            //data = newValue
+        //}
+        //get {
+          //  return data!
+        //}
+    //}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -208,22 +222,14 @@ class menuCollectionCell: UICollectionViewCell {
     
     fileprivate lazy var icon : UIImageView = {
         let icon = UIImageView()
-        
-        
-        //        let url = URL(string: model.imgUrl)
-        //        icon.kf.setImage(with: url)
-//        icon.image = UIImage(named: "cate")
-        
-       
         return icon
     }()
     
     fileprivate lazy var title : UILabel = {
         let title = UILabel()
         
-        
         title.textAlignment = .center
-        title.font = UIFont.systemFont(ofSize: 14)
+        title.font = UIFont.systemFont(ofSize: adjustSizeAPP(attribute: 24))
         title.textColor = string_ColorRGB(hex: "080808")
 
         return title
@@ -239,15 +245,14 @@ class menuCollectionCell: UICollectionViewCell {
         
         
         icon.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(adjustSizeAPP(attribute: 26))
-            make.left.equalToSuperview().offset(adjustSizeAPP(attribute: 46))
-            make.right.equalToSuperview().offset(adjustSizeAPP(attribute: -45.5))
-            make.height.equalTo(icon.snp.width)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+            make.width.height.equalTo(adjustSizeAPP(attribute: 96))
         }
         
         title.snp.makeConstraints { (make) in
-            make.top.equalTo(icon.snp.bottom).offset(adjustSizeAPP(attribute: 16))
-            make.left.right.equalToSuperview()
+            make.top.equalTo(icon.snp.bottom).offset(adjustSizeAPP(attribute: 6))
+            make.centerX.equalToSuperview()
         }
     }
 }

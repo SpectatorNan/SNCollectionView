@@ -54,7 +54,6 @@ class SNDropMenuButton: UIButton, SNDropMenuButtonContent,RadioContent {
     fileprivate lazy var title: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: adjustSizeAPP(attribute: 26))
-        
         return label
     }()
     
