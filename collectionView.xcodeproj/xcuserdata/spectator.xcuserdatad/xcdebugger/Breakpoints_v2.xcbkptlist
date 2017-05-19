@@ -52,13 +52,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "collectionView/SNDropMenuView.swift"
-            timestampString = "516685330.304138"
+            timestampString = "516880607.473767"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "layout()"
-            landmarkType = "7">
+            startingLineNumber = "249"
+            endingLineNumber = "249"
+            landmarkName = "SNDropMenuView"
+            landmarkType = "4">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -67,13 +67,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "collectionView/mutableMenuCollection.swift"
-            timestampString = "516685418.048762"
+            filePath = "collectionView/tableViewController.swift"
+            timestampString = "516880360.559285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "collectionView(_:didSelectItemAt:)"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "responseClouse()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

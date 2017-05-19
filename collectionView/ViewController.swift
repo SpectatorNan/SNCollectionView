@@ -24,61 +24,50 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationController?.setNavigationBarHidden(true, animated: true)
+        
         navigationController?.navigationBar.isTranslucent = false
         
-        let view1 = mutableMenuColletionView(frame: CGRect.zero, menuData: models)
+        let mainview = UIScrollView(frame: view.bounds)
+        view.addSubview(mainview)
+        mainview.backgroundColor = .red
         
-        view.addSubview(view1)
+        let view1 = mutableMenuColletionView(frame: CGRect.zero, menuData: models)
+        view1.backgroundColor = .orange
+        mainview.addSubview(view1)
+        
+        mainview.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         view1.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(10)
-            make.right.left.equalToSuperview()
+            make.left.equalToSuperview()
+            make.width.equalToSuperview()
         }
-        /*
-        let view3 = UIView()
-        view.addSubview(view3)
-         */
+   
         let view3 = UITableView()
-        view.addSubview(view3)
+        mainview.addSubview(view3)
         let view2 = SNDropMenuView(frame: CGRect.zero)
-        view.addSubview(view2)
-        
+        mainview.addSubview(view2)
+        view2.backgroundColor = .brown
+        view3.backgroundColor = .blue
         view2.snp.makeConstraints { (make) in
-//            make.top.equalTo(view1.snp.bottom).offset(10)
             make.top.equalTo(view1.snp.bottom).offset(5)
-            make.right.left.equalToSuperview()
-//            make.height.equalTo(adjustSizeAPP(attribute: 76))
+            make.left.equalToSuperview()
+            make.width.equalToSuperview()
         }
-        
+        view3.dataSource = self
+        view3.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         view3.snp.makeConstraints { (make) in
             make.top.equalTo(view2.snp.top).offset(adjustSizeAPP(attribute: 76))
-            make.left.right.equalToSuperview()
+            make.left.equalToSuperview()
+            make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
         
-    /*
-        view3.backgroundColor = .blue
-        view3.snp.makeConstraints { (make) in
-            make.top.equalTo(view2.snp.top).offset(adjustSizeAPP(attribute: 76+5))
-            make.right.left.equalToSuperview()
-            make.height.equalTo(300)
-        }
-        
-        let view4 = UIButton()
-        view.addSubview(view4)
-        view4.setTitle("push", for: .normal)
-        view4.setTitleColor(.black, for: .normal)
-        
-        view4.snp.makeConstraints { (make) in
-            make.top.equalTo(view3.snp.bottom).offset(20)
-            make.centerX.equalToSuperview()
-        }
-        
-        view4.addTarget(self, action: #selector(push), for: .touchUpInside)
-        */
+        mainview.contentSize = CGSize(width: ScreenW, height: view1.menuViewHeight+view.bounds.height)
     }
     
     func push() {
@@ -93,5 +82,19 @@ class ViewController: UIViewController {
 
 
 
+}
+
+extension ViewController : UITableViewDataSource {
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "\(indexPath.row)"
+        return cell
+    }
 }
 

@@ -21,18 +21,20 @@ class SNDropMenuView: UIView {
     /// 动画时长
     var time : TimeInterval = 0.5
     
+    typealias ktap = ()->()
     typealias tap = (String)->()
     var didSelectedItem : tap?
+    var didTapButton : ktap?
     //var didSelectedItem : (String)->() = {str in }
     /// 自定义蒙版
     lazy var customMask : UIButton = {
         let view = UIButton()
-        view.backgroundColor = .gray
-        view.alpha = 0.5
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+//        view.alpha = 0.5
         view.addTarget(self, action: #selector(layout), for: .touchUpInside)
         return view
     }()
-    var topMask : UIView?
+    //var topMask : UIView?
     
     /// 下拉菜单数据
     var listData : Array<SNDropMenuCellMdoel>?
@@ -111,16 +113,19 @@ extension SNDropMenuView {
         
        // backgroundColor = .clear
         
-        addSubview(customMask)
+//        addSubview(customMask)
         addSubview(btnV)
         btnV.addSubview(allBtn)
         btnV.addSubview(sortBtn)
         btnV.addSubview(screenBtn)
-        addSubview(listTable)
+//        addSubview(listTable)
+        customMask.addSubview(listTable)
         
         btnV.snp.makeConstraints { (make) in
-            make.top.right.left.equalToSuperview()
-            make.height.equalTo(adjustSizeAPP(attribute: 76))
+//            make.top.right.left.equalToSuperview()
+//            make.height.equalTo(adjustSizeAPP(attribute: 76))
+//            make.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         
@@ -145,23 +150,24 @@ extension SNDropMenuView {
             make.width.equalTo(width)
             make.bottom.equalToSuperview()
         }
-        
+        /*
         listTable.snp.makeConstraints { (make) in
             make.top.equalTo(btnV.snp.bottom).offset(adjustSizeAPP(attribute: 0.5))
             make.right.left.equalToSuperview()
             make.height.lessThanOrEqualTo(customMask.snp.height).priority(.required)
             //make.height.equalTo(0.5)
         }
-        
+        */
+        /*
         customMask.snp.makeConstraints { (make) in
             make.top.equalTo(btnV.snp.bottom)
             make.left.right.equalToSuperview()
             make.height.equalTo(0)
         }
-        
-        snp.makeConstraints { (make) in
-            make.bottom.equalTo(customMask.snp.bottom)
-        }
+        */
+//        snp.makeConstraints { (make) in
+//            make.bottom.equalTo(customMask.snp.bottom)
+//        }
     }
     
 }
@@ -245,34 +251,46 @@ fileprivate extension SNDropMenuView {
     /// 更新mask
     fileprivate func insertMask() {
         
-        let v = UIView()
-        v.backgroundColor = .clear
-        self.superview?.addSubview(v)
-        topMask = v
-        
-        v.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
-            make.width.equalTo(ScreenW)
-            make.bottom.equalTo(self.snp.top)
-        }
+//        let v = UIView()
+//        v.backgroundColor = .clear
+//        self.superview?.addSubview(v)
+//        topMask = v
+//        
+//        v.snp.makeConstraints { (make) in
+//            make.top.equalToSuperview()
+//            make.left.equalToSuperview()
+//            make.width.equalTo(ScreenW)
+//            make.bottom.equalTo(self.snp.top)
+//        }
 
+        if (!customMask.isDescendant(of: UIApplication.shared.keyWindow!)) {
+            
+            UIApplication.shared.keyWindow?.addSubview(customMask)
+            
+        }
         
         customMask.snp.remakeConstraints({ (make) in
             make.top.equalTo(btnV.snp.bottom)
             make.left.right.equalToSuperview()
-            make.bottom.equalTo((self.superview?.snp.bottom)!)
+            make.bottom.equalToSuperview()
         })
         layoutIfNeeded()
+        
+//        customMask.snp.remakeConstraints({ (make) in
+//            make.top.equalTo(btnV.snp.bottom)
+//            make.left.right.equalToSuperview()
+//            make.bottom.equalTo((self.superview?.snp.bottom)!)
+//        })
+//        layoutIfNeeded()
     }
     
     /// 移除mask
     
     fileprivate func removeMask(complete: kblock?) {
         
-        if let clearMask = topMask {
-            clearMask.removeFromSuperview()
-        }
+//        if let clearMask = topMask {
+//            clearMask.removeFromSuperview()
+//        }
         
         customMask.snp.remakeConstraints({ (make) in
             make.top.equalTo(btnV.snp.bottom)
@@ -334,6 +352,7 @@ extension SNDropMenuView : SNDropMenuButtonDelegate {
       
         if (menuButton.checked) {
             insertMask()
+            didTapButton?()
             switch menuButton {
             case sortBtn:
                 listType = .sort

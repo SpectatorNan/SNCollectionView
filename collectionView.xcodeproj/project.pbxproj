@@ -16,6 +16,7 @@
 		763DB4791E18813700BFC5D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 763DB4771E18813700BFC5D9 /* LaunchScreen.storyboard */; };
 		763DB4841E18813700BFC5D9 /* collectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763DB4831E18813700BFC5D9 /* collectionViewTests.swift */; };
 		763DB48F1E18813700BFC5D9 /* collectionViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763DB48E1E18813700BFC5D9 /* collectionViewUITests.swift */; };
+		766E0D4A1ECEE92000D626CE /* tableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766E0D491ECEE92000D626CE /* tableViewController.swift */; };
 		76E5F9FD1EC2C79000D116D5 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E5F9DA1EC2C79000D116D5 /* Constraint.swift */; };
 		76E5F9FE1EC2C79000D116D5 /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E5F9DB1EC2C79000D116D5 /* ConstraintAttributes.swift */; };
 		76E5F9FF1EC2C79000D116D5 /* ConstraintConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E5F9DC1EC2C79000D116D5 /* ConstraintConfig.swift */; };
@@ -107,6 +108,7 @@
 		763DB48A1E18813700BFC5D9 /* collectionViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = collectionViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		763DB48E1E18813700BFC5D9 /* collectionViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionViewUITests.swift; sourceTree = "<group>"; };
 		763DB4901E18813700BFC5D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		766E0D491ECEE92000D626CE /* tableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tableViewController.swift; sourceTree = "<group>"; };
 		76E5F9DA1EC2C79000D116D5 /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		76E5F9DB1EC2C79000D116D5 /* ConstraintAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintAttributes.swift; sourceTree = "<group>"; };
 		76E5F9DC1EC2C79000D116D5 /* ConstraintConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintConfig.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				763DB47A1E18813700BFC5D9 /* Info.plist */,
 				76E5FA1F1EC2C8CB00D116D5 /* common.swift */,
 				76E5FA5D1EC4828A00D116D5 /* AViewController.swift */,
+				766E0D491ECEE92000D626CE /* tableViewController.swift */,
 			);
 			path = collectionView;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				76E5FA1C1EC2C79000D116D5 /* LayoutConstraint.swift in Sources */,
 				76E5FA021EC2C79000D116D5 /* ConstraintDSL.swift in Sources */,
 				763DB4711E18813700BFC5D9 /* ViewController.swift in Sources */,
+				766E0D4A1ECEE92000D626CE /* tableViewController.swift in Sources */,
 				76E5FA1E1EC2C79000D116D5 /* UILayoutSupport+Extensions.swift in Sources */,
 				76E5FA081EC2C79000D116D5 /* ConstraintLayoutGuideDSL.swift in Sources */,
 				76E5FA131EC2C79000D116D5 /* ConstraintPriority.swift in Sources */,
