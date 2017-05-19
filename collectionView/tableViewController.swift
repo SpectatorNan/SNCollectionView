@@ -69,6 +69,8 @@ class tableViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         mainView.tableHeaderView = tableheader
+        
+        dropView.category = [SNDropMenuCellMdoel("智能排序", checked: true),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高"),SNDropMenuCellMdoel("离我最近"),SNDropMenuCellMdoel("人气最高")]
     }
 
     func responseClouse() {

@@ -209,7 +209,7 @@ fileprivate extension SNDropMenuView {
         
         let height = CGFloat((listData?.count)!) * adjustSizeAPP(attribute: 90)
         listTable.reloadData()
-        
+        listTable.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         
         listTable.snp.remakeConstraints { (make) in
             make.top.equalTo(btnV.snp.bottom).offset(adjustSizeAPP(attribute: 0.5))
@@ -218,8 +218,14 @@ fileprivate extension SNDropMenuView {
             make.height.lessThanOrEqualTo(customMask.snp.height).offset(adjustSizeAPP(attribute: -200)).priority(.required)
         }
         
-        UIView.animate(withDuration: time) {
+//        UIView.animate(withDuration: time) {
+//            self.layoutIfNeeded()
+//        }
+        UIView.animate(withDuration: time, animations: {
+            self.btnV.isUserInteractionEnabled = false
             self.layoutIfNeeded()
+        }) { (b) in
+            self.btnV.isUserInteractionEnabled = true
         }
         
     }
@@ -234,7 +240,7 @@ fileprivate extension SNDropMenuView {
         
         
         UIView.animate(withDuration: time, animations: {
-            
+            self.btnV.isUserInteractionEnabled = false
            self.customMask.layoutIfNeeded()
             print("layout")
         }) { (c) in
@@ -242,6 +248,7 @@ fileprivate extension SNDropMenuView {
             print("reomve mask")
                 self.removeMask(complete: { 
                     self.clearBtnCheck()
+                    self.btnV.isUserInteractionEnabled = true
                 })
         }
     
@@ -271,6 +278,9 @@ fileprivate extension SNDropMenuView {
         
         customMask.snp.remakeConstraints({ (make) in
             make.top.equalTo(btnV.snp.bottom)
+//            make.top.lessThanOrEqualTo(btnV.snp.bottom)
+//                        make.top.equalToSuperview().offset(adjustSizeAPP(attribute: 76))
+            make.height.lessThanOrEqualTo(ScreenH-adjustSizeAPP(attribute: 76)-64)
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         })

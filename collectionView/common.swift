@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 let ScreenW = UIScreen.main.bounds.size.width
+let ScreenH = UIScreen.main.bounds.size.height
 
 func string_ColorRGB(hex : String) -> UIColor{
     var cString: String = hex
