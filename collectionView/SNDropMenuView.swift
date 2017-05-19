@@ -108,6 +108,16 @@ class SNDropMenuView: UIView {
 }
 
 extension SNDropMenuView {
+    
+    func  manualClear() {
+        if (isMaskShow()) {
+        customMask.removeFromSuperview()
+        }
+    }
+    
+    func isMaskShow() -> Bool{
+        return customMask.isDescendant(of: UIApplication.shared.keyWindow!)
+    }
     /// 初始化界面
     fileprivate func setupView() {
         
