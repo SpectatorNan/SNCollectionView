@@ -229,13 +229,13 @@ fileprivate extension SNDropMenuView {
         
         listTable.snp.updateConstraints { (make) in
             make.height.equalTo(0)
-            make.height.lessThanOrEqualTo(customMask.snp.height).priority(.required)
+            
         }
         
         
         UIView.animate(withDuration: time, animations: {
             
-            self.superview?.layoutIfNeeded()
+           self.customMask.layoutIfNeeded()
             print("layout")
         }) { (c) in
             
@@ -300,6 +300,7 @@ fileprivate extension SNDropMenuView {
         
         layoutIfNeeded()
         
+        customMask.removeFromSuperview()
         complete?()
     }
     
@@ -330,6 +331,18 @@ extension SNDropMenuView : UITableViewDelegate {
             } else {
                 listData?[m].check = true
                 didSelectedItem?(data[m].name)
+                switch listType {
+                case .all:
+                    allBtn.text = data[m].name
+                case .sort:
+                    sortBtn.text = data[m].name
+                case .scrren:
+                    screenBtn.text = data[m].name
+                default:
+                    allBtn.text = "全部"
+                    sortBtn.text = "排序"
+                    screenBtn.text = "筛选"
+                }
             }
         }
         

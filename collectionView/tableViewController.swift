@@ -77,6 +77,10 @@ class tableViewController: UIViewController {
             let index = IndexPath(row: 0, section: 0)
             self.mainView.scrollToRow(at: index, at: .top, animated: true)
         }
+        
+        dropView.didSelectedItem = { [unowned self] str in
+            
+        }
     }
 }
 
